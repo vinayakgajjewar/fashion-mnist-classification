@@ -51,3 +51,31 @@ for i in range(25):
     plt.imshow(train_images[i], plt.cm.binary)
     plt.xlabel(class_names[train_labels[i]])
 plt.show()
+
+# Configure the layers of the NN
+# The first layer flattens the data from a 28x28 array to a 1x784 array
+# The hidden layer has 128 neurons and uses the Rectified Linear Unit activation function
+# ReLU uses the function f(x)=max(0, x)
+# The output layer has 10 neurons and uses the softmax activation function
+# It returns an array of 10 probability scores (1 for each label) that sum up to 1
+model = keras.Sequential([
+    keras.layers.Flatten(input_shape=(28, 28)),
+    keras.layers.Dense(128, activation=tf.nn.relu),
+    keras.layers.Dense(10, activation=tf.nn.softmax)
+])
+
+# Compile the model and specify which optimizer and loss function to use
+# The optimizer (which updates the gradients across the NN) is called Stochastic Gradient Descent
+# Don't use mean squared error (MSE) for the loss function because it expects the input to be in the same shape as the output
+# Which is not possible
+# Use sparse categorical crossentropy instead and train for accuracy
+model.compile(
+    optimizer="sgd",
+    loss="sparse_categorical_crossentropy",
+    metrics=["accuracy"]
+)
+
+# Iterate over the training data 10 times
+# This is probably overkill but idk
+model.fit(train_images, train_labels, epochs=10)
+
