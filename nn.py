@@ -15,7 +15,7 @@ print(tf.__version__)
 
 # Import the Fashion MNIST dataset
 # Slightly more challenging of a problem for the neural net than vanilla MNIST
-# Loading the data returns 4 28x28 NumPy arrays with pizel values ranging from 0 to 255
+# Loading the data returns 4 28x28 NumPy arrays with pixel values ranging from 0 to 255
 fashion_mnist = keras.datasets.fashion_mnist
 (train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
 
