@@ -50,7 +50,8 @@ for i in range(25):
     plt.grid(False)
     plt.imshow(train_images[i], plt.cm.binary)
     plt.xlabel(class_names[train_labels[i]])
-plt.show()
+# Uncomment this if you want to see the first 25 images
+# plt.show()
 
 # Configure the layers of the NN
 # The first layer flattens the data from a 28x28 array to a 1x784 array
@@ -75,7 +76,14 @@ model.compile(
     metrics=["accuracy"]
 )
 
-# Iterate over the training data 10 times
-# This is probably overkill but idk
-model.fit(train_images, train_labels, epochs=10)
+# Iterate over the training data 5 times
+# 10 epochs is overkill
+model.fit(train_images, train_labels, epochs=5)
 
+# Predict the classifications for the test data set
+# A single prediction is an array of 10 numbers that contains the confidence of the NN that the image is one of the 10 labels
+# np.argmax() returns the largest prediction value (whichever label the NN is most confident in)
+predictions = model.predict(test_images)
+
+for i in range(25):
+    print(str(i) + ": " + class_names[np.argmax(predictions[i])] + " confidence=" + str(predictions[i][np.argmax(predictions[i])]))
