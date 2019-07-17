@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Print TensorFlow's version number to affirm that it's installed correctly
-print(tf.__version__)
+#print(tf.__version__)
 
 # Import the Fashion MNIST dataset
 # Slightly more challenging of a problem for the neural net than vanilla MNIST
@@ -23,12 +23,12 @@ fashion_mnist = keras.datasets.fashion_mnist
 class_names = ["T-shirt/top", "Trouser", "Pullover", "Dress", "Coat", "Sandal", "Shirt", "Sneaker", "Bag", "Ankle boot"]
 
 # Print the shape of the training images array
-print("Shape of the training images:")
-print(train_images.shape)
+#print("Shape of the training images:")
+#print(train_images.shape)
 
 # Print the length of the labels array
-print("Length of the training labels array:")
-print(len(train_labels))
+#print("Length of the training labels array:")
+#print(len(train_labels))
 
 # Show the first training image
 #plt.figure()
@@ -71,7 +71,7 @@ model = keras.Sequential([
 # Which is not possible
 # Use sparse categorical crossentropy instead and train for accuracy
 model.compile(
-    optimizer="sgd",
+    optimizer=keras.optimizers.SGD(lr=0.01, momentum=0.9, nesterov=True),
     loss="sparse_categorical_crossentropy",
     metrics=["accuracy"]
 )
@@ -80,10 +80,16 @@ model.compile(
 # 10 epochs is overkill
 model.fit(train_images, train_labels, epochs=5)
 
+# Evaluate the accuracy of the model using the test dataset
+test_loss, test_acc = model.evaluate(test_images, test_labels)
+print("Test accuracy: ", test_acc)
+
 # Predict the classifications for the test data set
 # A single prediction is an array of 10 numbers that contains the confidence of the NN that the image is one of the 10 labels
 # np.argmax() returns the largest prediction value (whichever label the NN is most confident in)
 predictions = model.predict(test_images)
 
 for i in range(25):
-    print(str(i) + ": " + class_names[np.argmax(predictions[i])] + " confidence=" + str(predictions[i][np.argmax(predictions[i])]))
+    print(str(i) + ": " + class_names[np.argmax(predictions[i])] + " confidence = " + str(predictions[i][np.argmax(predictions[i])]))
+
+print(model.summary())
