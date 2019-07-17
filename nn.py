@@ -67,6 +67,7 @@ model = keras.Sequential([
 
 # Compile the model and specify which optimizer and loss function to use
 # The optimizer (which updates the gradients across the NN) is called Stochastic Gradient Descent
+# Set the learning rate to 0.01 and the momentum to 0.9
 # Don't use mean squared error (MSE) for the loss function because it expects the input to be in the same shape as the output
 # Which is not possible
 # Use sparse categorical crossentropy instead and train for accuracy
