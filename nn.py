@@ -62,8 +62,11 @@ for i in range(25):
 model = keras.Sequential([
     keras.layers.Flatten(input_shape=(28, 28)),
     keras.layers.Dense(128, activation=tf.nn.relu),
+    keras.layers.Dropout(0.5),
     keras.layers.Dense(128, activation=tf.nn.relu),
+    keras.layers.Dropout(0.5),
     keras.layers.Dense(128, activation=tf.nn.relu),
+    keras.layers.Dropout(0.5),
     keras.layers.Dense(10, activation=tf.nn.softmax)
 ])
 
@@ -81,7 +84,7 @@ model.compile(
 
 # Iterate over the training data 5 times
 # 10 epochs is overkill
-model.fit(train_images, train_labels, epochs=5)
+model.fit(train_images, train_labels, epochs=100)
 
 # Evaluate the accuracy of the model using the test dataset
 test_loss, test_acc = model.evaluate(test_images, test_labels)
